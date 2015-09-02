@@ -1,0 +1,25 @@
+﻿<h2>Login</h2>
+
+<p>
+    @Html.ActionLink("Create New Accouont", "Create")
+</p>
+<div>
+    <h3>
+        Login to existing account
+    </h3>
+    <div>
+        @using (Html.BeginForm("EvalLoginRequest", "Login", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+            <p>
+                @Html.TextBox("requestedUsername")
+            </p>
+            <p>
+                @Html.TextBox("requestedPassword")
+            </p>
+            <p>
+                <input type="submit" value="Login" />
+            </p>
+        }
+    </div>
+</div>
+
