@@ -17,21 +17,21 @@ namespace Chat.DAL {
             user.ForEach(i => context.UsersSet.Add(i));
             context.SaveChanges();
 
-            var project = new List<Projects> {
-                new Projects{ ID=0, Name="projectBengt" },
-                new Projects{ ID=1, Name="projectKarl" },
-                new Projects{ ID=2, Name="projectNisse" },
-                new Projects{ ID=3, Name="ProjectJohan" }
+            var project = new List<Groups> {
+                new Groups{ ID=1, Name="GroupBengt", Owner="bengt" },
+                new Groups{ ID=2, Name="GrouptKarl", Owner="karl" },
+                new Groups{ ID=3, Name="GroupNisse", Owner="nisse" },
+                new Groups{ ID=4, Name="GroupJohan", Owner="johan" }
             };
 
-            project.ForEach(c => context.ProjecstSet.Add(c));
+            project.ForEach(c => context.GroupsSet.Add(c));
             context.SaveChanges();
 
-            var message = new List<ProjectMessages> {
-                new ProjectMessages{ ID=0, Sender="bengt", Message="hej på er", Timestamp="10/9/2015 9:45:06 PM" },
-                new ProjectMessages{ ID=1, Sender="nisse", Message="wassup dudes?", Timestamp="10/9/2015 10:00:00 PM" },
-                new ProjectMessages{ ID=2, Sender="karl", Message="allt är bra", Timestamp="10/9/2015 11:05:50 PM" },
-                new ProjectMessages{ ID=3, Sender="johan", Message="stol :D", Timestamp="12/10/2015 14:10:50 PM" }
+            var message = new List<GroupMessages> {
+                new GroupMessages{ ID=0, Sender="bengt", Message="hej på er", Timestamp="10/9/2015 9:45:06 PM" },
+                new GroupMessages{ ID=1, Sender="nisse", Message="wassup dudes?", Timestamp="10/9/2015 10:00:00 PM" },
+                new GroupMessages{ ID=2, Sender="karl", Message="allt är bra", Timestamp="10/9/2015 11:05:50 PM" },
+                new GroupMessages{ ID=3, Sender="johan", Message="stol :D", Timestamp="12/10/2015 14:10:50 PM" }
             };
 
             message.ForEach(r => context.ProjectMessagesSet.Add(r));

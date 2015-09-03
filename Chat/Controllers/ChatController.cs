@@ -16,9 +16,9 @@ namespace Chat.Controllers
         private ProjectContext db = new ProjectContext();
 
         // GET: Chat
-        public ActionResult Index()
+        public ActionResult Index(long id)
         {
-            return View(db.ProjectMessagesSet.ToList());
+            return View(UpdateMessagesShown(id));
         }
 
         // GET: Chat/Details/5
@@ -28,7 +28,7 @@ namespace Chat.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectMessages projectMessages = db.ProjectMessagesSet.Find(id);
+            GroupMessages projectMessages = db.ProjectMessagesSet.Find(id);
             if (projectMessages == null)
             {
                 return HttpNotFound();
@@ -47,7 +47,7 @@ namespace Chat.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Sender,Message,Timestamp")] ProjectMessages projectMessages)
+        public ActionResult Create([Bind(Include = "ID,Sender,Message,Timestamp")] GroupMessages projectMessages)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace Chat.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectMessages projectMessages = db.ProjectMessagesSet.Find(id);
+            GroupMessages projectMessages = db.ProjectMessagesSet.Find(id);
             if (projectMessages == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace Chat.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Sender,Message,Timestamp")] ProjectMessages projectMessages)
+        public ActionResult Edit([Bind(Include = "ID,Sender,Message,Timestamp")] GroupMessages projectMessages)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace Chat.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectMessages projectMessages = db.ProjectMessagesSet.Find(id);
+            GroupMessages projectMessages = db.ProjectMessagesSet.Find(id);
             if (projectMessages == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace Chat.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ProjectMessages projectMessages = db.ProjectMessagesSet.Find(id);
+            GroupMessages projectMessages = db.ProjectMessagesSet.Find(id);
             db.ProjectMessagesSet.Remove(projectMessages);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -123,6 +123,21 @@ namespace Chat.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string GetGroupName(long id) {
+            return db.GroupsSet.Find(id).Owner;
+        }
+
+        public List<GroupMessages> UpdateMessagesShown(long id) {
+            string sender = GetGroupName(id);
+            List<GroupMessages> lstMsg = new List<GroupMessages>();
+            foreach (GroupMessages msg in db.ProjectMessagesSet.ToList()) {
+                if (msg.Sender == sender) {
+                    lstMsg.Add(msg);
+                }
+            }
+            return lstMsg;
         }
     }
 }

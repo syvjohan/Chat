@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Chat.DAL;
 using Chat.Models;
+using System.Text.RegularExpressions;
 
 namespace Chat.Controllers
 {
@@ -127,8 +128,80 @@ namespace Chat.Controllers
 
         public ActionResult EvalLoginRequest(string requestedUsername, string requestedPassword) {
             //Check if password and username exist.
+            Users user = GetUser(requestedUsername);
+            if (user == null || user.Password != requestedPassword) {
+                // user does not exist!
+                ModelState.AddModelError("errorUserNotExist", "User does not exist");
+                return View("../Login/Index");
+            }
 
-            return View("../Projects/Index");
+            //Save user for future use.
+            Session["currentUser"] = user;
+
+            return RedirectToAction("Index", "Group");
+        }
+
+        public ActionResult CreateNewUser(string createUsername, string createPassword, string createMail) {
+            Users user = GetUser(createUsername);
+            //if user exist.
+            if (user != null) {
+                ModelState.AddModelError("errorCreateNewUser", "User already exist!");
+                return View("../Login/Create");
+
+            } else if (!EvalUsername(createUsername) || !EvalPassword(createPassword) || !EvalMail(createMail)) {
+                ModelState.AddModelError("errorCreateNewUser", "Wrong input");
+                return View("../Login/Create");
+            }
+
+            //Add new user to database.
+            user = new Users();
+            user.Mail = createMail;
+            user.Password = createPassword;
+            user.Username = createUsername;
+            db.UsersSet.Add(user);
+            db.SaveChanges();
+
+            //Save user for future use.
+            Session["currentUser"] = user;
+
+            //Redirect to next controller and view.
+            return RedirectToAction("Index", "Group");
+        }
+
+        private Users GetUser(string username) {
+            return db.UsersSet.Find(username);
+        }
+
+        private bool EvalPassword(string value) {
+            if (value.Length >= 6) {
+                bool containsDigit = Regex.IsMatch(value, @"\d");
+                bool containsLowLetter = Regex.IsMatch(value, @"[a-z]");
+                bool containsUpperLetter = Regex.IsMatch(value, @"[A-Z]");
+                if (containsDigit && containsLowLetter && containsUpperLetter) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool EvalUsername(string value) {
+            return (value.Length >= 6 && Regex.IsMatch(value, @"[a-zA-Z]"));
+        }
+
+        private bool EvalMail(string value) {
+            if (value.Length >= 6) {
+                 int at = value.IndexOf('@');
+                 int dot = value.IndexOf('.');
+                 if (at != 0 && dot != 0 && (at < dot)) {
+                     string lhsAt = value.Substring(0, at);
+                     string rhsAt = value.Substring(at + 1, (dot - at - 1));
+                     string rhsDot = value.Substring(dot + 1, value.Length - (dot + 1));
+                     if (lhsAt.Length > 0 && rhsAt.Length > 0 && rhsDot.Length > 0) {
+                         return true;
+                     }
+                 }
+            }
+            return false;
         }
     }
 }

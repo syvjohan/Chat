@@ -1,0 +1,22 @@
+﻿<h2>Edit group name</h2>
+
+<div>
+    @using (Html.BeginForm("EditGroup", "Group", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <p>
+            @Html.Label("New group name") <br>
+            @Html.TextBox("newGroupName")
+        </p>
+        <p>
+            <input type="submit" value="Change name" />
+        </p>
+    <p>
+        @*Is only displayed if an error has been occured.*@
+        @Html.ValidationMessage("errorChangeGroupName")
+    </p>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

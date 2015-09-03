@@ -1,14 +1,7 @@
-﻿@model IEnumerable<Chat.Models.ProjectMessages>
+﻿@model IEnumerable<Chat.Models.GroupMessages>
 
-@{
-    ViewBag.Title = "Index";
-}
+<h2>Chat</h2>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -33,11 +26,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Timestamp)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

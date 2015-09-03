@@ -163,7 +163,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="DAL\ProjectContext.cs" />
     <Compile Include="DAL\TestData.cs" />
     <Compile Include="Global.asax.cs">
@@ -172,8 +172,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ProjectMessages.cs" />
-    <Compile Include="Models\Projects.cs" />
+    <Compile Include="Models\GroupMessages.cs" />
+    <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -239,15 +239,11 @@
     <Content Include="Views\Login\Details.cshtml" />
     <Content Include="Views\Login\Edit.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Projects\Delete.cshtml" />
-    <Content Include="Views\Projects\Details.cshtml" />
-    <Content Include="Views\Projects\Edit.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Chat\Create.cshtml" />
-    <Content Include="Views\Chat\Delete.cshtml" />
-    <Content Include="Views\Chat\Details.cshtml" />
-    <Content Include="Views\Chat\Edit.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Delete.cshtml" />
+    <Content Include="Views\Group\Details.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

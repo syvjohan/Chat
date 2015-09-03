@@ -5,10 +5,9 @@ using System.Linq;
 using System.Web;
 
 namespace Chat.Models {
-    public class ProjectMessages {
+    public class Groups {
         [Key] public long ID { get; set; }
-        public string Sender { get; set; }
-        public string Message { get; set; }
-        public string Timestamp { get; set; }
+        public string Name { get; set; }
+        public string Owner { get; set; }
     }
 }

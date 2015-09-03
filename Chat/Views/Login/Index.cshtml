@@ -11,15 +11,24 @@
         @using (Html.BeginForm("EvalLoginRequest", "Login", FormMethod.Post)) {
             @Html.AntiForgeryToken()
             <p>
+                @Html.Label("Username") <br>
                 @Html.TextBox("requestedUsername")
             </p>
             <p>
+                @Html.Label("Password") <br>
                 @Html.TextBox("requestedPassword")
             </p>
             <p>
                 <input type="submit" value="Login" />
             </p>
+            <p>
+                @*Is only displayed if an error has been occured.*@
+                @Html.ValidationMessage("errorUserNotExist")
+            </p>
         }
     </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
 </div>
 

@@ -1,0 +1,22 @@
+﻿<h2>Create new group</h2>
+
+<div>
+    @using (Html.BeginForm("CreateNewGroup", "Group", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <p>
+            @Html.Label("Group name") <br>
+            @Html.TextBox("groupName")
+        </p>
+        <p>
+            <input type="submit" value="Create group" />
+        </p>
+        <p>
+            @*Is only displayed if an error has been occured.*@
+            @Html.ValidationMessage("errorCreateNewUser")
+        </p>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
